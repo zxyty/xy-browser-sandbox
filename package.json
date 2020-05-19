@@ -1,0 +1,33 @@
+{
+    "name": "xy-share-component",
+    "version": "1.0.4",
+    "main": "lib/index.js",
+    "license": "MIT",
+    "scripts": {
+        "compile": "rimraf lib&&cross-env BABEL_ENV=production babel ./src --out-dir lib  --extensions .ts,.tsx,.js --copy-files --ignore spec.js,test.js && tsc -p ./tsconfig.prod.json"
+    },
+    "author": "zxy",
+    "description": "Create browser sandbox by proxy",
+    "keywords": [
+        "sandbox",
+        "browser"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zxyty/xy-browser-sanbox.git"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.5",
+        "@babel/preset-react": "^7.9.4",
+        "@babel/preset-typescript": "^7.9.0",
+        "@babel/plugin-proposal-class-properties": "^7.8.3",
+        "@types/node": "^13.11.0",
+        "@types/react": "^16.9.32",
+        "babel-loader": "^8.1.0",
+        "cross-env": "^7.0.2",
+        "rimraf": "^3.0.2",
+        "typescript": "^3.8.3"
+    }
+}
