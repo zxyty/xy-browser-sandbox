@@ -1,13 +1,22 @@
 import Sandbox from './sandbox';
 import Frame from './frame';
 import SandboxWindow from './window';
+import SandboxDocument from './document';
 
 export default class Browser extends Sandbox {
-  bootstarp = async () => {
+  install = async () => {
     this.frame = await new Promise(resolve => {
       resolve(Frame.create('about:blank'));
     });
     this.window = new SandboxWindow(this) as Window;
+    this.document = new SandboxDocument(this) as Document;
+
+    return Promise.resolve;
+  };
+
+  uninstall = async () => {
+    this.window.removeAllListeners!();
+    this.document.removeAllListeners!();
 
     return Promise.resolve;
   };
@@ -20,6 +29,6 @@ export default class Browser extends Sandbox {
                 ${code}
               }
             };//@sourceURL=${conf?.name || ''}`)();
-    return resolver({ window: this.window, document: {} });
+    return resolver({ window: this.window, document: this.document });
   };
 }

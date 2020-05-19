@@ -1,24 +1,15 @@
 import { addListener, rmListener, rmAllListeners } from './event';
 
-class Window {
+export default class Document {
   constructor(sandbox) {
-    const { frame } = sandbox;
-    const SANDBOX_GLOBAL_VARS = {};
-    frame.contentWindow.EVENT_BASE = window;
-    return new Proxy(frame.contentWindow, {
-      set(target, name, value) {
-        if (!(name in target)) {
-          SANDBOX_GLOBAL_VARS[name] = value;
-        } else {
-          target[name] = value;
-        }
-        return true;
-      },
+    document.EVENT_BASE = document;
 
+    return new Proxy(document, {
       get(target, name) {
         switch (name) {
-          case 'SANDBOX_GLOBAL_VARS':
-            return SANDBOX_GLOBAL_VARS;
+          case 'defaultView': {
+            return sandbox.window;
+          }
           case 'addEventListener': {
             return addListener(sandbox, target);
           }
@@ -33,8 +24,10 @@ class Window {
           }
         }
       },
+      set(target, name, value) {
+        target[name] = value;
+        return true;
+      },
     });
   }
 }
-
-export default Window;
