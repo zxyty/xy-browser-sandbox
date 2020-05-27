@@ -2,8 +2,7 @@ import { addListener, rmListener, rmAllListeners } from './event';
 
 export default class Document {
   constructor(sandbox) {
-    document.EVENT_BASE = document;
-
+    (document as any).EVENT_BASE = document;
     return new Proxy(document, {
       get(target, name) {
         switch (name) {

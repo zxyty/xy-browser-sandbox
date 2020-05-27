@@ -15,8 +15,8 @@ export default class Browser extends Sandbox {
   };
 
   uninstall = async () => {
-    this.window.removeAllListeners!();
-    this.document.removeAllListeners!();
+    (this.window as any).removeAllListeners!();
+    (this.document as any).removeAllListeners!();
 
     return Promise.resolve;
   };
